@@ -9,8 +9,6 @@
       content="width=device-width, initial-scale=1"
     />
 
-    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@2.0.0-beta.2/dist/ua-parser.pack.min.js"></script>
-
     <style>
       html {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -65,30 +63,8 @@
         max-width: 100%;
       }
 
-      pre {
-        background-color: #f1f1f1;
-        display: block;
-        padding: 1em;
-        overflow-x: auto;
-        margin-top: 0px;
-        margin-bottom: 2.5rem;
-        font-size: 0.9em;
-      }
-
-      code,
-      kbd,
-      samp {
-        font-size: 0.9em;
-        padding: 0 0.5em;
-        background-color: #f1f1f1;
-        white-space: pre-wrap;
-      }
-
       pre > code {
-        padding: 0;
-        background-color: transparent;
         white-space: pre-wrap;
-        font-size: 1em;
       }
 
       .split {
@@ -127,6 +103,16 @@
         text-align: right;
       }
     </style>
+
+    <!-- UA Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@2.0.0-beta.2/dist/ua-parser.pack.min.js"></script>
+
+    <!-- Highlight JS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
   </head>
 
   <body>
@@ -171,7 +157,7 @@
     <!-- Raw data -->
     <div class="trailer">
       <div><strong>Raw Data:</strong></div>
-      <pre><code id="raw-data"></code></pre>
+      <pre><code id="raw-data" class="language-json"></code></pre>
     </div>
 
     <!-- Repo link -->
@@ -274,7 +260,8 @@
 
           // User agent data
           {
-            $("#raw-data").innerText = JSON.stringify(result, null, 2);
+            $("#raw-data").textContent = JSON.stringify(result, null, 2);
+            hljs.highlightElement($("#raw-data"));
           }
         });
     </script>
