@@ -1,4 +1,4 @@
-# [useragent.cc](https://useragent.cc)
+# [UserAgent.cc](https://useragent.cc)
 
 Simple webpage that displays detailed system information provided by the user agent.
 
