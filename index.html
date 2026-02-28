@@ -59,6 +59,19 @@
         color: #0056b3;
       }
 
+      #browser-ip-fetch {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        color: #007bff;
+      }
+
+      #browser-ip-fetch:hover {
+        color: #0056b3;
+      }
+
       img,
       video {
         height: auto;
@@ -132,7 +145,7 @@
 
         <div>
           <span>IP Address:</span>
-          <strong><a id="browser-ip-fetch" href="#">fetch</a><span id="browser-ip"></span></strong>
+          <strong><button id="browser-ip-fetch" type="button">fetch</button><span id="browser-ip"></span></strong>
         </div>
       </div>
 
@@ -205,20 +218,21 @@
 
             $("#browser-ip").innerText = "";
             $("#browser-ip-fetch").addEventListener("click", (e) => {
-              e.preventDefault();
-              $("#browser-ip-fetch").innerText = "...";
+              const btn = $("#browser-ip-fetch");
+              btn.disabled = true;
+              btn.innerText = "...";
               fetch("https://api.ipify.org?format=json")
                 .then((response) => response.json())
                 .then((data) => {
-                  $("#browser-ip-fetch").remove();
+                  btn.remove();
                   $("#browser-ip").innerText = data.ip;
                 })
                 .catch((error) => {
                   console.error("Failed to fetch IP address:", error);
-                  $("#browser-ip-fetch").remove();
-                  $("#browser-ip").innerText = "Unknown";
+                  btn.remove();
+                  $("#browser-ip").innerText = "error";
                 });
-            }, { once: true });
+            });
           }
 
           // System
