@@ -132,7 +132,7 @@
 
         <div>
           <span>IP Address:</span>
-          <strong><span id="browser-ip"></span></strong>
+          <strong><a id="browser-ip-fetch" href="#">fetch</a><span id="browser-ip"></span></strong>
         </div>
       </div>
 
@@ -203,16 +203,22 @@
             $("#browser-version").innerText =
               result.browser.version || "Unknown";
 
-            $("#browser-ip").innerText = "...";
-            fetch("https://api.ipify.org?format=json")
-              .then((response) => response.json())
-              .then((data) => {
-                $("#browser-ip").innerText = data.ip;
-              })
-              .catch((error) => {
-                console.error("Failed to fetch IP address:", error);
-                $("#browser-ip").innerText = "Unknown";
-              });
+            $("#browser-ip").innerText = "";
+            $("#browser-ip-fetch").addEventListener("click", (e) => {
+              e.preventDefault();
+              $("#browser-ip-fetch").innerText = "...";
+              fetch("https://api.ipify.org?format=json")
+                .then((response) => response.json())
+                .then((data) => {
+                  $("#browser-ip-fetch").remove();
+                  $("#browser-ip").innerText = data.ip;
+                })
+                .catch((error) => {
+                  console.error("Failed to fetch IP address:", error);
+                  $("#browser-ip-fetch").remove();
+                  $("#browser-ip").innerText = "Unknown";
+                });
+            }, { once: true });
           }
 
           // System
